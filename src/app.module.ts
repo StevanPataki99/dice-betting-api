@@ -1,10 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { load } from './config/configuration';
+import { UserModule } from './user/user.module';
 import databaseConfig from './config/database.config';
+import { User } from './user/user.model';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import appConfig from './config/app.config';
 
 @Module({
   imports: [
@@ -15,7 +21,14 @@ import databaseConfig from './config/database.config';
     SequelizeModule.forRoot({
       ...databaseConfig,
       dialect: 'postgres',
-      models: [],
+      models: [User],
+    }),
+    UserModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      debug: appConfig.isDevEnv,
+      playground: appConfig.isDevEnv,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
   ],
   controllers: [AppController],
