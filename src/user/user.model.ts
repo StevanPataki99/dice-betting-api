@@ -5,10 +5,11 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 @ObjectType()
 export class User extends Model {
   @Field(() => Int)
+  @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
   id: number;
 
   @Field(() => String)
-  @Column({ type: DataType.CHAR })
+  @Column
   name: string;
 
   @Field(() => Number)
