@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { load } from './config/configuration';
 import { UserModule } from './user/user.module';
 import databaseConfig from './config/database.config';
-import { User } from './user/user.model';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import appConfig from './config/app.config';
@@ -21,7 +20,8 @@ import appConfig from './config/app.config';
     SequelizeModule.forRoot({
       ...databaseConfig,
       dialect: 'postgres',
-      models: [User],
+      autoLoadModels: appConfig.isDevEnv,
+      synchronize: appConfig.isDevEnv,
     }),
     UserModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
