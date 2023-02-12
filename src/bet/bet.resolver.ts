@@ -17,8 +17,6 @@ export class BetResolver {
   async getBet(@Args('id', { type: () => Number }) id: number) {
     const bet = await this.betService.findOne(id);
 
-    console.log(bet);
-
     if (!bet) {
       throw new NotFoundException();
     }

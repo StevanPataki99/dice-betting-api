@@ -17,8 +17,6 @@ export class UserResolver {
   async getUser(@Args('id', { type: () => Number }) id: number) {
     const user = await this.userService.findOne(id);
 
-    console.log(user);
-
     if (!user) {
       throw new NotFoundException();
     }
