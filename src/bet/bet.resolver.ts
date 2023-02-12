@@ -26,6 +26,12 @@ export class BetResolver {
     return bet;
   }
 
+  //I did not manage to complete this query
+  @Query(() => [Bet])
+  async getBestBetPerUser() {
+    return await this.betService.findBestBetPerUser();
+  }
+
   @Mutation(() => Bet)
   async createBet(
     @Args('payload', { type: () => CreateBetInput }) payload: CreateBetInput,

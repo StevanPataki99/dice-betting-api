@@ -27,6 +27,22 @@ export class BetService {
     });
   }
 
+  //I did not manage to complete this query
+  async findBestBetPerUser(): Promise<Bet[]> {
+    const [results] = await this.betModel.sequelize.query(
+      `SELECT "userId","win",
+        MAX(payout) as payout
+        FROM "Bets"
+        WHERE "win" = true
+        GROUP BY "userId", "win"
+      `,
+    );
+
+    console.log(results);
+
+    return results as Bet[];
+  }
+
   async create(
     userId: number,
     chance: number,

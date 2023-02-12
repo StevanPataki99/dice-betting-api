@@ -22,6 +22,7 @@ type Query {
   getUser(id: Float!): User!
   getBetList: [Bet!]!
   getBet(id: Float!): Bet!
+  getBestBetPerUser: [Bet!]!
 }
 
 type Mutation {
