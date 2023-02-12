@@ -30,6 +30,6 @@ export class BetResolver {
   async createBet(
     @Args('payload', { type: () => CreateBetInput }) payload: CreateBetInput,
   ): Promise<Bet> {
-    return await this.betService.create(payload);
+    return await this.betService.createBet(payload);
   }
 }

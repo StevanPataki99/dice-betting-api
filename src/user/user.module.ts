@@ -5,6 +5,7 @@ import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 
 @Module({
+  exports: [UserService],
   imports: [SequelizeModule.forFeature([User])],
   providers: [UserService, UserResolver],
   controllers: [],
