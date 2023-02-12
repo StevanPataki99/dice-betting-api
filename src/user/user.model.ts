@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Bet } from 'src/bet/bet.model';
 
 @Table
 @ObjectType()
@@ -15,4 +16,7 @@ export class User extends Model {
   @Field(() => Number)
   @Column({ type: DataType.FLOAT })
   balance: number;
+
+  @HasMany(() => Bet)
+  bets: Bet[];
 }

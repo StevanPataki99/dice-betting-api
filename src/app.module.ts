@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import databaseConfig from './config/database.config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { BetModule } from './bet/bet.module';
 import appConfig from './config/app.config';
 
 @Module({
@@ -24,6 +25,7 @@ import appConfig from './config/app.config';
       synchronize: appConfig.isDevEnv,
     }),
     UserModule,
+    BetModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       debug: appConfig.isDevEnv,

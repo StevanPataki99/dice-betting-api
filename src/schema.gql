@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Bet {
+  id: Int!
+  betAmount: Float!
+  chance: Float!
+  payout: Float!
+  win: Boolean!
+  userId: Int!
+}
+
 type User {
   id: Int!
   name: String!
@@ -11,13 +20,22 @@ type User {
 type Query {
   getUserList: [User!]!
   getUser(id: Float!): User!
+  getBetList: [Bet!]!
+  getBet(id: Float!): Bet!
 }
 
 type Mutation {
   createUser(payload: CreateUserInput!): User!
+  createBet(payload: CreateBetInput!): Bet!
 }
 
 input CreateUserInput {
   name: String!
   balance: Float!
+}
+
+input CreateBetInput {
+  userId: Float!
+  betAmount: Float!
+  chance: Float!
 }
