@@ -56,11 +56,23 @@ export class BetService {
       throw new NotFoundException(`User dosen't exist`);
     }
 
+    if (payload.betAmount < 1) {
+      throw new BadRequestException(`Bet amount should be greater then 0`);
+    }
+
+    // some of these checks could have been fitted to validation
+    // middleware but i decided not to do that because of time contraints
     if (user.balance < payload.betAmount) {
       throw new BadRequestException(`User dosen't have enough balance`);
     }
 
+    await this.userService.removeBalance(payload.userId, payload.betAmount);
+
     const { payout, win } = this.calculate(payload.chance, payload.betAmount);
+
+    if (win) {
+      await this.userService.addBalance(payload.userId, payout);
+    }
 
     return await this.create(
       payload.userId,

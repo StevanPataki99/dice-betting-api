@@ -25,4 +25,31 @@ export class UserService {
       balance: payload.balance,
     });
   }
+
+  async removeBalance(id: number, amount: number) {
+    const user = await this.findOne(id);
+
+    const newBalance = user.balance - amount;
+    await this.updateBalance(id, newBalance);
+  }
+
+  async addBalance(id: number, amount: number) {
+    const user = await this.findOne(id);
+
+    const newBalance = user.balance + amount;
+    await this.updateBalance(id, newBalance);
+  }
+
+  async updateBalance(id: number, balance: number) {
+    await this.userModel.update(
+      {
+        balance,
+      },
+      {
+        where: {
+          id,
+        },
+      },
+    );
+  }
 }
